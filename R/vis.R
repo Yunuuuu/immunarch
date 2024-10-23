@@ -1365,7 +1365,7 @@ vis_box <- function(.data, .by = NA, .meta = NA, .melt = TRUE,
                     .points = TRUE, .test = TRUE, .signif.label.size = 3.5, .defgroupby = "Sample", .grouping.var = "Group",
                     .labs = c("X", "Y"), .title = "Boxplot (.title argument)",
                     .subtitle = "Subtitle (.subtitle argument)",
-                    .legend = NA, .leg.title = "Legend (.leg.title argument)", .legend.pos = "right") {
+                    .legend = NA, .leg.title = "Legend (.leg.title argument)", .legend.pos = "right", p.adjust.method = "holm") {
   if (.melt) {
     res <- reshape2::melt(.data)
     res <- res[1:nrow(res), ]
@@ -1437,7 +1437,7 @@ vis_box <- function(.data, .by = NA, .meta = NA, .melt = TRUE,
           }
         }
 
-        p_df <- compare_means(Value ~ Group, .data, comparisons = comparisons, p.adjust.method = "holm")
+        p_df <- compare_means(Value ~ Group, .data, comparisons = comparisons, p.adjust.method = p.adjust.method)
 
         y_max <- max(.data$Value)
         p.value.y.coord <- rep(y_max, nrow(p_df))
